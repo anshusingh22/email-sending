@@ -1,16 +1,50 @@
 <!DOCTYPE html>
 <html>
    <head>
-   	    <title>send email</title>
+        <title>send email</title>
    </head>
    <body>
    <div style="width:500px;height:200px;background-color: lightblue;margin: auto;padding: 10px;box-shadow: 2px 2px 4px grey">
     <h3 align="center">EMAIL TRACKING</h3>
-    <form  id="uploadForm" enctype="multipart/form-data" action="upload" method="post">
-    send msg: <input type="text" name="msg"/>
-    <input type="file" name="file" /><hr/>
-    <input type="submit" value="Upload" name="submit">
+    <form name="myForm" id="uploadForm" enctype="multipart/form-data" action="upload" method="post">
+    <input type="file" name="file" onchange="validate_fileupload(this);" required/>
+     send msg: <input type="text" name="msg" required/>
+    <div id="feedback" style="color:red;font-size: 12px;"></div>
+    <hr/>
+    <input type="submit" value="Upload" name="submit" onclick="return valid_form();">
     </form>
     </div>
+    
+    <script>
+        function validate_fileupload(input_element)
+    {
+    var el = document.getElementById("feedback");
+    var fileName = input_element.value;
+    var allowed_extensions = new Array("xl","xls");
+    var file_extension = fileName.split('.').pop(); 
+    for(var i = 0; i < allowed_extensions.length; i++)
+    {
+        if(allowed_extensions[i]==file_extension)
+        {
+            valid = true; // valid file extension
+            el.innerHTML = "";
+            return;
+        }
+    }
+    el.innerHTML="please upload only xl file******";
+    valid = false;
+    }
+
+function valid_form()
+{    
+    if (valid==false) {
+        alert("please upload correct file");
+        return valid;
+    }
+  else{
+        return valid;
+    }
+}
+    </script>
    </body>
 </html>
